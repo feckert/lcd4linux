@@ -29,6 +29,30 @@
 #ifndef _TIMER_GROUP_H_
 #define _TIMER_GROUP_H_
 
+/* structure for storing all relevant timer data of a single widget */
+typedef struct TIMER_GROUP_WIDGET {
+    /* pointer to function of type void func(void *data) that will be
+       called when the timer is processed; it will also be used to
+       identify a specific widget */
+    void (*callback) (void *data);
+
+    /* pointer to data which will be passed to the callback function;
+       it will also be used to identify a specific widget */
+    void *data;
+
+    /* specifies the timer's triggering interval in milliseconds; it
+       will also be used to identify a specific widget */
+    int interval;
+
+    /* specifies whether the timer should trigger indefinitely until
+       it is deleted (value of 0) or only once (all other values) */
+    int one_shot;
+
+    /* marks timer as being active (so it will get processed) or
+       inactive (which means the timer has been deleted and its
+       allocated memory may be re-used) */
+    int active;
+} TIMER_GROUP_WIDGET;
 
 void timer_process_group(void *data);
 
