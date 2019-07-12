@@ -85,6 +85,7 @@ int widget_keypad_init(WIDGET * Self)
 	keypad->key = WIDGET_KEY_RELEASED;
     else
 	keypad->key = WIDGET_KEY_PRESSED;
+    free(c);
 
     /* position: confirm (default), up, down, left, right, cancel */
     c = cfg_get(section, "position", "confirm");
@@ -101,6 +102,7 @@ int widget_keypad_init(WIDGET * Self)
     else
 	keypad->key += WIDGET_KEY_CONFIRM;
 
+    free(c);
     free(section);
     Self->data = keypad;
     Self->x2 = NOCOORD;
