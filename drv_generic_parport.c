@@ -331,6 +331,27 @@ static unsigned char drv_generic_parport_signal_status(const char *name, const c
 }
 
 
+unsigned char drv_generic_parport_hardwire_status(const char *name, const char *signal)
+{
+    unsigned char wire;
+    char key[256];
+    char *val;
+
+    qprintf(key, sizeof(key), "Wire.%s", name);
+    val = cfg_get(Section, key, "");
+
+    /* maybe warn the user */
+    if (*val != '\0' && strcasecmp(signal, val) != 0) {
+	error("%s: ignoring configured signal <%s> for status line <%s>", Driver, val, name);
+    }
+    free(val);
+
+    wire = drv_generic_parport_signal_status(name, signal);
+
+    return wire;
+}
+
+
 unsigned char drv_generic_parport_wire_status(const char *name, const char *deflt)
 {
     unsigned char wire;

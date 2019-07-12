@@ -86,7 +86,8 @@
 int drv_generic_parport_open(const char *section, const char *driver);
 int drv_generic_parport_close(void);
 unsigned char drv_generic_parport_wire_ctrl(const char *name, const char *deflt);
-unsigned char drv_generic_parport_hardwire_ctrl(const char *name, const char *deflt);
+unsigned char drv_generic_parport_hardwire_ctrl(const char *name, const char *signal);
+unsigned char drv_generic_parport_hardwire_status(const char *name, const char *signal);
 unsigned char drv_generic_parport_wire_status(const char *name, const char *deflt);
 unsigned char drv_generic_parport_wire_data(const char *name, const char *deflt);
 void drv_generic_parport_direction(const int direction);
