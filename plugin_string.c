@@ -128,6 +128,30 @@ static void my_substr(RESULT * result, int argc, RESULT * argv[])
     free(str);
 }
 
+/* Returns a string with all chars from rStart (inclusive) to rEnd 
+ * (exclusive). Length rEnd-rStart. May be used to test charset of LCD.
+ */
+static void my_charset(RESULT * result, RESULT * rStart, RESULT * rEnd)
+{
+
+    int start = R2N(rStart);
+    int end = R2N(rEnd);
+
+    if (start < 0 || end > 256 || start > end) {
+	SetResult(&result, R_STRING, "");
+	return;
+    }
+
+    char buf[end - start + 1];
+    buf[end - start] = '\0';
+    int i;
+    for (i = start; i < end; i++)
+	buf[i - start] = i;
+
+    SetResult(&result, R_STRING, buf);
+}
+
+
 int plugin_init_string(void)
 {
 
@@ -136,6 +160,9 @@ int plugin_init_string(void)
     AddFunction("strupper", 1, my_strupper);
     AddFunction("strstr", 2, my_strstr);
     AddFunction("substr", -1, my_substr);
+    AddFunction("charset", 2, my_charset);
+
+
     return 0;
 }
 
