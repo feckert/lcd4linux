@@ -456,7 +456,10 @@ int SetVariableString(const char *name, const char *value)
 
     SetResult(&rp, R_STRING, value);
 
-    return SetVariable(name, rp);
+    int r = SetVariable(name, rp);
+    free(rp->string);
+
+    return r;
 }
 
 
