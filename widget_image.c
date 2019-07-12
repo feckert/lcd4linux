@@ -169,7 +169,7 @@ static void widget_image_render(const char *Name, WIDGET_IMAGE * Image)
 }
 
 
-static void widget_image_update(void *Self)
+void widget_image_update(void *Self)
 {
     WIDGET *W = (WIDGET *) Self;
     WIDGET_IMAGE *Image = W->data;
