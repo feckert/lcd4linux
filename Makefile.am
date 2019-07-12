@@ -40,6 +40,7 @@ udelay.c      udelay.h        \
 qprintf.c     qprintf.h       \
 rgb.c         rgb.h           \
 event.c       event.h         \
+action.c      action.h        \
                               \
 widget.c      widget.h        \
 widget_text.c widget_text.h   \
@@ -54,7 +55,7 @@ plugin_cfg.c                  \
 plugin_math.c                 \
 plugin_string.c               \
 plugin_test.c                 \
-plugin_time.c
+plugin_time.c                 
 
 EXTRA_lcd4linux_SOURCES=      \
 drv_generic_text.c            \
@@ -131,9 +132,12 @@ widget_image.c widget_image.h \
                               \
 lcd4linux_i2c.h               \
                               \
+plugin_layout.h               \
+                              \
 plugin_apm.c                  \
 plugin_asterisk.c             \
 plugin_button_exec.c          \
+plugin_control.c              \
 plugin_cpuinfo.c              \
 plugin_dbus.c                 \
 plugin_diskstats.c            \
@@ -143,15 +147,18 @@ plugin_fifo.c                 \
 plugin_file.c                 \
 plugin_gps.c                  \
 plugin_hddtemp.c              \
-plugin_huawei.c		      \
+plugin_huawei.c		          \
 plugin_i2c_sensors.c          \
 plugin_iconv.c                \
 plugin_imon.c                 \
 plugin_isdn.c                 \
 plugin_kvv.c                  \
+plugin_layout.c               \
+plugin_list.c                 \
 plugin_loadavg.c              \
 plugin_meminfo.c              \
-plugin_mpd.c		      \
+plugin_menu.c                 \
+plugin_mpd.c		          \
 plugin_mpris_dbus.c           \
 plugin_mysql.c                \
 plugin_netdev.c               \
@@ -162,12 +169,13 @@ plugin_proc_stat.c            \
 plugin_python.c               \
 plugin_qnaplog.c              \
 plugin_raspi.c                \
+plugin_run.c                  \
 plugin_sample.c               \
 plugin_seti.c                 \
 plugin_statfs.c               \
 plugin_uname.c                \
 plugin_uptime.c               \
-plugin_w1retap.c	      \
+plugin_w1retap.c	          \
 plugin_wireless.c             \
 plugin_xmms.c
 

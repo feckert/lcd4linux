@@ -53,17 +53,18 @@ for plugin in $plugins; do
       list)
          AC_MSG_RESULT(
             [available plugins:]
-            [ apm,asterisk,button_exec,cpuinfo,dbus,diskstats,dvb,exec,event,]
+            [ apm,asterisk,button_exec,control,cpuinfo,dbus,diskstats,dvb,exec,event,]
             [ fifo,file,gps,hddtemp,huawei,i2c_sensors,iconv,imon,isdn,kvv,]
-            [ loadavg,meminfo,mpd,mpris_dbus,mysql,netdev,netinfo,pop3,ppp,]
-	    [ proc_stat,python,qnaplog,raspi,sample,seti,statfs,uname,uptime,]
+            [ layout,list,loadavg,meminfo,menu,mpd,mpris_dbus,mysql,netdev,netinfo,pop3,ppp,]
+	    [ proc_stat,python,qnaplog,raspi,run,sample,seti,statfs,uname,uptime,]
             [ w1retap,wireless,xmms])
          AC_MSG_ERROR([run ./configure --with-plugins=...])
          ;;
       all)
          PLUGIN_APM="yes"
        	 PLUGIN_ASTERISK="yes"
-	 PLUGIN_BUTTON_EXEC="yes"
+	     PLUGIN_BUTTON_EXEC="yes"
+         PLUGIN_CONTROL="yes"
          PLUGIN_CPUINFO="yes"
          PLUGIN_DBUS="yes"
          PLUGIN_DISKSTATS="yes"
@@ -80,10 +81,13 @@ for plugin in $plugins; do
          PLUGIN_IMON="yes"
          PLUGIN_ISDN="yes"
          PLUGIN_KVV="yes"
+         PLUGIN_LAYOUT="yes"
+         PLUGIN_LIST="yes"
          PLUGIN_LOADAVG="yes"
          PLUGIN_MEMINFO="yes"
+         PLUGIN_MENU="yes"
          PLUGIN_MPD="yes"
-	 PLUGIN_MPRIS_DBUS="yes"
+	     PLUGIN_MPRIS_DBUS="yes"
          PLUGIN_MYSQL="yes"
          PLUGIN_NETDEV="yes"
          PLUGIN_NETINFO="yes"
@@ -93,6 +97,7 @@ for plugin in $plugins; do
          PLUGIN_PYTHON=$with_python
          PLUGIN_QNAPLOG="yes"
          PLUGIN_RASPI="yes"
+         PLUGIN_RUN="yes"
          PLUGIN_SAMPLE="yes"
          PLUGIN_SETI="yes"
          PLUGIN_STATFS="yes"
@@ -105,7 +110,8 @@ for plugin in $plugins; do
       none)
          PLUGIN_APM="no"
        	 PLUGIN_ASTERISK="no"
-	 PLUGIN_BUTTON_EXEC="no"
+	     PLUGIN_BUTTON_EXEC="no"
+         PLUGIN_CONTROL="no"
          PLUGIN_CPUINFO="no"
          PLUGIN_DBUS="no"
          PLUGIN_DISKSTATS="no"
@@ -122,10 +128,13 @@ for plugin in $plugins; do
          PLUGIN_IMON="no"
          PLUGIN_ISDN="no"
          PLUGIN_KVV="no"
+         PLUGIN_LAYOUT="no"
+         PLUGIN_LIST="no"
          PLUGIN_LOADAVG="no"
          PLUGIN_MEMINFO="no"
+         PLUGIN_MENU="no"
          PLUGIN_MPD="no"
-	 PLUGIN_MPRIS_DBUS="no"
+	     PLUGIN_MPRIS_DBUS="no"
          PLUGIN_MYSQL="no"
          PLUGIN_NETDEV="no"
          PLUGIN_NETINFO="no"
@@ -135,6 +144,7 @@ for plugin in $plugins; do
          PLUGIN_PYTHON="no"
          PLUGIN_QNAPLOG="no"
          PLUGIN_RASPI="no"
+         PLUGIN_RUN="no"
          PLUGIN_SAMPLE="no"
          PLUGIN_SETI="no"
          PLUGIN_STATFS="no"
@@ -148,10 +158,13 @@ for plugin in $plugins; do
          PLUGIN_APM=$val
          ;;
       button_exec)
-	 PLUGIN_BUTTON_EXEC=$val
-	 ;;
+	     PLUGIN_BUTTON_EXEC=$val
+	     ;;
       asterisk)
          PLUGIN_ASTERISK=$val
+         ;;
+      control)
+         PLUGIN_CONTROL=$val
          ;;
       cpuinfo)
          PLUGIN_CPUINFO=$val
@@ -188,10 +201,10 @@ for plugin in $plugins; do
          ;;
       i2c_sensors)
          PLUGIN_I2C_SENSORS=$val
-	 ;;
+	     ;;
       iconv)
       	PLUGIN_ICONV=$val
-      	;;
+      	 ;;
       imon)
          PLUGIN_IMON=$val
          ;;
@@ -201,15 +214,24 @@ for plugin in $plugins; do
       kvv)
          PLUGIN_KVV=$val
          ;;
+      layout)
+         PLUGIN_LAYOUT=$val
+         ;;
+      list)
+         PLUGIN_LIST=$val
+         ;;
       loadavg)
          PLUGIN_LOADAVG=$val
          ;;
       meminfo)
          PLUGIN_MEMINFO=$val
          ;;
+      menu)
+         PLUGIN_MENU=$val
+         ;;
       mpd)
          PLUGIN_MPD=$val
-	 ;;
+	     ;;
       mpris_dbus)
          PLUGIN_MPRIS_DBUS=$val
          ;;	 
@@ -239,6 +261,9 @@ for plugin in $plugins; do
          ;;
       raspi)
          PLUGIN_RASPI=$val
+         ;;
+      run)
+         PLUGIN_RUN=$val
          ;;
       sample)
          PLUGIN_SAMPLE=$val
@@ -291,6 +316,12 @@ fi
 if test "$PLUGIN_ASTERISK" = "yes"; then
    PLUGINS="$PLUGINS plugin_asterisk.o"
    AC_DEFINE(PLUGIN_ASTERISK,1,[asterisk plugin])
+fi
+
+# control plugin
+if test "$PLUGIN_CONTROL" = "yes"; then
+   PLUGINS="$PLUGINS plugin_control.o"
+   AC_DEFINE(PLUGIN_CONTROL,1,[control plugin])
 fi
 
 # /proc/cpuinfo
@@ -442,6 +473,18 @@ if test "$PLUGIN_KVV" = "yes"; then
    AC_DEFINE(PLUGIN_KVV,1,[kvv plugin])
 fi
 
+# layout switch
+if test "$PLUGIN_LAYOUT" = "yes"; then
+   PLUGINS="$PLUGINS plugin_layout.o"
+   AC_DEFINE(PLUGIN_LAYOUT,1,[layout plugin])
+fi
+
+# list plugin
+if test "$PLUGIN_LIST" = "yes"; then
+   PLUGINS="$PLUGINS plugin_list.o"
+   AC_DEFINE(PLUGIN_LIST,1,[list plugin])
+fi
+
 # load average
 if test "$PLUGIN_LOADAVG" = "yes"; then
    PLUGINS="$PLUGINS plugin_loadavg.o"
@@ -452,6 +495,12 @@ fi
 if test "$PLUGIN_MEMINFO" = "yes"; then
    PLUGINS="$PLUGINS plugin_meminfo.o"
    AC_DEFINE(PLUGIN_MEMINFO,1,[meminfo plugin])
+fi
+
+# menu plugin
+if test "$PLUGIN_MENU" = "yes"; then
+   PLUGINS="$PLUGINS plugin_menu.o"
+   AC_DEFINE(PLUGIN_MENU,1,[menu plugin])
 fi
 
 # MPD
@@ -576,6 +625,12 @@ fi
 if test "$PLUGIN_RASPI" = "yes"; then
    PLUGINS="$PLUGINS plugin_raspi.o"
    AC_DEFINE(PLUGIN_RASPI,1,[raspi plugin])
+fi
+
+# run plugin
+if test "$PLUGIN_RUN" = "yes"; then
+   PLUGINS="$PLUGINS plugin_run.o"
+   AC_DEFINE(PLUGIN_RUN,1,[run plugin])
 fi
 
 # sample

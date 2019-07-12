@@ -1482,7 +1482,7 @@ Optional Packages:
                           of avaible plugins
                           plugins may be excluded with 'all,!<plugin>',
                           (try 'all,\!<plugin>' if your shell complains...)
-  --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+  --with-gnu-ld           assume the C compiler uses GNU ld default=no
   --with-libiconv-prefix[=DIR]  search for libiconv in DIR/include and DIR/lib
   --without-libiconv-prefix     don't search for libiconv in includedir and libdir
   --with-pic[=PKGS]       try to use only PIC/non-PIC objects [default=use
@@ -2552,8 +2552,8 @@ test "$program_suffix" != NONE &&
 ac_script='s/[\\$]/&&/g;s/;s,x,x,$//'
 program_transform_name=`$as_echo "$program_transform_name" | sed "$ac_script"`
 
-# expand $ac_aux_dir to an absolute path
-am_aux_dir=`cd $ac_aux_dir && pwd`
+# Expand $ac_aux_dir to an absolute path.
+am_aux_dir=`cd "$ac_aux_dir" && pwd`
 
 if test x"${MISSING+set}" != xset; then
   case $am_aux_dir in
@@ -7544,23 +7544,24 @@ for plugin in $plugins; do
    case "$plugin" in
       list)
          { $as_echo "$as_me:${as_lineno-$LINENO}: result: available plugins:
-             apm,asterisk,button_exec,cpuinfo,dbus,diskstats,dvb,exec,event,
+             apm,asterisk,button_exec,control,cpuinfo,dbus,diskstats,dvb,exec,event,
              fifo,file,gps,hddtemp,huawei,i2c_sensors,iconv,imon,isdn,kvv,
-             loadavg,meminfo,mpd,mpris_dbus,mysql,netdev,netinfo,pop3,ppp,
-	     proc_stat,python,qnaplog,raspi,sample,seti,statfs,uname,uptime,
+             layout,list,loadavg,meminfo,menu,mpd,mpris_dbus,mysql,netdev,netinfo,pop3,ppp,
+	     proc_stat,python,qnaplog,raspi,run,sample,seti,statfs,uname,uptime,
              w1retap,wireless,xmms" >&5
 $as_echo "available plugins:
-             apm,asterisk,button_exec,cpuinfo,dbus,diskstats,dvb,exec,event,
+             apm,asterisk,button_exec,control,cpuinfo,dbus,diskstats,dvb,exec,event,
              fifo,file,gps,hddtemp,huawei,i2c_sensors,iconv,imon,isdn,kvv,
-             loadavg,meminfo,mpd,mpris_dbus,mysql,netdev,netinfo,pop3,ppp,
-	     proc_stat,python,qnaplog,raspi,sample,seti,statfs,uname,uptime,
+             layout,list,loadavg,meminfo,menu,mpd,mpris_dbus,mysql,netdev,netinfo,pop3,ppp,
+	     proc_stat,python,qnaplog,raspi,run,sample,seti,statfs,uname,uptime,
              w1retap,wireless,xmms" >&6; }
          as_fn_error $? "run ./configure --with-plugins=..." "$LINENO" 5
          ;;
       all)
          PLUGIN_APM="yes"
        	 PLUGIN_ASTERISK="yes"
-	 PLUGIN_BUTTON_EXEC="yes"
+	     PLUGIN_BUTTON_EXEC="yes"
+         PLUGIN_CONTROL="yes"
          PLUGIN_CPUINFO="yes"
          PLUGIN_DBUS="yes"
          PLUGIN_DISKSTATS="yes"
@@ -7577,10 +7578,13 @@ $as_echo "available plugins:
          PLUGIN_IMON="yes"
          PLUGIN_ISDN="yes"
          PLUGIN_KVV="yes"
+         PLUGIN_LAYOUT="yes"
+         PLUGIN_LIST="yes"
          PLUGIN_LOADAVG="yes"
          PLUGIN_MEMINFO="yes"
+         PLUGIN_MENU="yes"
          PLUGIN_MPD="yes"
-	 PLUGIN_MPRIS_DBUS="yes"
+	     PLUGIN_MPRIS_DBUS="yes"
          PLUGIN_MYSQL="yes"
          PLUGIN_NETDEV="yes"
          PLUGIN_NETINFO="yes"
@@ -7590,6 +7594,7 @@ $as_echo "available plugins:
          PLUGIN_PYTHON=$with_python
          PLUGIN_QNAPLOG="yes"
          PLUGIN_RASPI="yes"
+         PLUGIN_RUN="yes"
          PLUGIN_SAMPLE="yes"
          PLUGIN_SETI="yes"
          PLUGIN_STATFS="yes"
@@ -7602,7 +7607,8 @@ $as_echo "available plugins:
       none)
          PLUGIN_APM="no"
        	 PLUGIN_ASTERISK="no"
-	 PLUGIN_BUTTON_EXEC="no"
+	     PLUGIN_BUTTON_EXEC="no"
+         PLUGIN_CONTROL="no"
          PLUGIN_CPUINFO="no"
          PLUGIN_DBUS="no"
          PLUGIN_DISKSTATS="no"
@@ -7619,10 +7625,13 @@ $as_echo "available plugins:
          PLUGIN_IMON="no"
          PLUGIN_ISDN="no"
          PLUGIN_KVV="no"
+         PLUGIN_LAYOUT="no"
+         PLUGIN_LIST="no"
          PLUGIN_LOADAVG="no"
          PLUGIN_MEMINFO="no"
+         PLUGIN_MENU="no"
          PLUGIN_MPD="no"
-	 PLUGIN_MPRIS_DBUS="no"
+	     PLUGIN_MPRIS_DBUS="no"
          PLUGIN_MYSQL="no"
          PLUGIN_NETDEV="no"
          PLUGIN_NETINFO="no"
@@ -7632,6 +7641,7 @@ $as_echo "available plugins:
          PLUGIN_PYTHON="no"
          PLUGIN_QNAPLOG="no"
          PLUGIN_RASPI="no"
+         PLUGIN_RUN="no"
          PLUGIN_SAMPLE="no"
          PLUGIN_SETI="no"
          PLUGIN_STATFS="no"
@@ -7645,10 +7655,13 @@ $as_echo "available plugins:
          PLUGIN_APM=$val
          ;;
       button_exec)
-	 PLUGIN_BUTTON_EXEC=$val
-	 ;;
+	     PLUGIN_BUTTON_EXEC=$val
+	     ;;
       asterisk)
          PLUGIN_ASTERISK=$val
+         ;;
+      control)
+         PLUGIN_CONTROL=$val
          ;;
       cpuinfo)
          PLUGIN_CPUINFO=$val
@@ -7685,10 +7698,10 @@ $as_echo "available plugins:
          ;;
       i2c_sensors)
          PLUGIN_I2C_SENSORS=$val
-	 ;;
+	     ;;
       iconv)
       	PLUGIN_ICONV=$val
-      	;;
+      	 ;;
       imon)
          PLUGIN_IMON=$val
          ;;
@@ -7698,15 +7711,24 @@ $as_echo "available plugins:
       kvv)
          PLUGIN_KVV=$val
          ;;
+      layout)
+         PLUGIN_LAYOUT=$val
+         ;;
+      list)
+         PLUGIN_LIST=$val
+         ;;
       loadavg)
          PLUGIN_LOADAVG=$val
          ;;
       meminfo)
          PLUGIN_MEMINFO=$val
          ;;
+      menu)
+         PLUGIN_MENU=$val
+         ;;
       mpd)
          PLUGIN_MPD=$val
-	 ;;
+	     ;;
       mpris_dbus)
          PLUGIN_MPRIS_DBUS=$val
          ;;
@@ -7736,6 +7758,9 @@ $as_echo "available plugins:
          ;;
       raspi)
          PLUGIN_RASPI=$val
+         ;;
+      run)
+         PLUGIN_RUN=$val
          ;;
       sample)
          PLUGIN_SAMPLE=$val
@@ -7808,6 +7833,14 @@ if test "$PLUGIN_ASTERISK" = "yes"; then
    PLUGINS="$PLUGINS plugin_asterisk.o"
 
 $as_echo "#define PLUGIN_ASTERISK 1" >>confdefs.h
+
+fi
+
+# control plugin
+if test "$PLUGIN_CONTROL" = "yes"; then
+   PLUGINS="$PLUGINS plugin_control.o"
+
+$as_echo "#define PLUGIN_CONTROL 1" >>confdefs.h
 
 fi
 
@@ -8202,7 +8235,6 @@ case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
   prefix="$acl_save_prefix"
 
 
-
 # Check whether --with-gnu-ld was given.
 if test "${with_gnu_ld+set}" = set; then :
   withval=$with_gnu_ld; test "$withval" = no || with_gnu_ld=yes
@@ -8213,21 +8245,21 @@ fi
 # Prepare PATH_SEPARATOR.
 # The user is always right.
 if test "${PATH_SEPARATOR+set}" != set; then
-  # Determine PATH_SEPARATOR by trying to find /bin/sh in a PATH which
-  # contains only /bin. Note that ksh looks also at the FPATH variable,
-  # so we have to set that as well for the test.
-  PATH_SEPARATOR=:
-  (PATH='/bin;/bin'; FPATH=$PATH; sh -c :) >/dev/null 2>&1 \
-    && { (PATH='/bin:/bin'; FPATH=$PATH; sh -c :) >/dev/null 2>&1 \
-           || PATH_SEPARATOR=';'
-       }
+  echo "#! /bin/sh" >conf$$.sh
+  echo  "exit 0"   >>conf$$.sh
+  chmod +x conf$$.sh
+  if (PATH="/nonexistent;."; conf$$.sh) >/dev/null 2>&1; then
+    PATH_SEPARATOR=';'
+  else
+    PATH_SEPARATOR=:
+  fi
+  rm -f conf$$.sh
 fi
-
 ac_prog=ld
 if test "$GCC" = yes; then
   # Check if gcc -print-prog-name=ld gives a path.
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ld used by $CC" >&5
-$as_echo_n "checking for ld used by $CC... " >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ld used by GCC" >&5
+$as_echo_n "checking for ld used by GCC... " >&6; }
   case $host in
   *-*-mingw*)
     # gcc leaves a trailing carriage return which upsets mingw
@@ -8237,11 +8269,11 @@ $as_echo_n "checking for ld used by $CC... " >&6; }
   esac
   case $ac_prog in
     # Accept absolute paths.
-    [\\/]* | ?:[\\/]*)
+    [\\/]* | [A-Za-z]:[\\/]*)
       re_direlt='/[^/][^/]*/\.\./'
-      # Canonicalize the pathname of ld
-      ac_prog=`echo "$ac_prog"| sed 's%\\\\%/%g'`
-      while echo "$ac_prog" | grep "$re_direlt" > /dev/null 2>&1; do
+      # Canonicalize the path of ld
+      ac_prog=`echo $ac_prog| sed 's%\\\\%/%g'`
+      while echo $ac_prog | grep "$re_direlt" > /dev/null 2>&1; do
         ac_prog=`echo $ac_prog| sed "s%$re_direlt%/%"`
       done
       test -z "$LD" && LD="$ac_prog"
@@ -8266,26 +8298,23 @@ if ${acl_cv_path_LD+:} false; then :
   $as_echo_n "(cached) " >&6
 else
   if test -z "$LD"; then
-  acl_save_ifs="$IFS"; IFS=$PATH_SEPARATOR
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS="${IFS}${PATH_SEPARATOR-:}"
   for ac_dir in $PATH; do
-    IFS="$acl_save_ifs"
     test -z "$ac_dir" && ac_dir=.
     if test -f "$ac_dir/$ac_prog" || test -f "$ac_dir/$ac_prog$ac_exeext"; then
       acl_cv_path_LD="$ac_dir/$ac_prog"
       # Check to see if the program is GNU ld.  I'd rather use --version,
-      # but apparently some variants of GNU ld only accept -v.
+      # but apparently some GNU ld's only accept -v.
       # Break only if it was the GNU/non-GNU ld that we prefer.
-      case `"$acl_cv_path_LD" -v 2>&1 </dev/null` in
+      case `"$acl_cv_path_LD" -v 2>&1 < /dev/null` in
       *GNU* | *'with BFD'*)
-        test "$with_gnu_ld" != no && break
-        ;;
+        test "$with_gnu_ld" != no && break ;;
       *)
-        test "$with_gnu_ld" != yes && break
-        ;;
+        test "$with_gnu_ld" != yes && break ;;
       esac
     fi
   done
-  IFS="$acl_save_ifs"
+  IFS="$ac_save_ifs"
 else
   acl_cv_path_LD="$LD" # Let the user override the test with a path.
 fi
@@ -8305,14 +8334,12 @@ $as_echo_n "checking if the linker ($LD) is GNU ld... " >&6; }
 if ${acl_cv_prog_gnu_ld+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  # I'd rather use --version here, but apparently some GNU lds only accept -v.
+  # I'd rather use --version here, but apparently some GNU ld's only accept -v.
 case `$LD -v 2>&1 </dev/null` in
 *GNU* | *'with BFD'*)
-  acl_cv_prog_gnu_ld=yes
-  ;;
+  acl_cv_prog_gnu_ld=yes ;;
 *)
-  acl_cv_prog_gnu_ld=no
-  ;;
+  acl_cv_prog_gnu_ld=no ;;
 esac
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $acl_cv_prog_gnu_ld" >&5
@@ -8495,7 +8522,7 @@ fi
       done
       if test -z "$already_handled"; then
         names_already_handled="$names_already_handled $name"
-                        uppername=`echo "$name" | sed -e 'y|abcdefghijklmnopqrstuvwxyz./+-|ABCDEFGHIJKLMNOPQRSTUVWXYZ____|'`
+                        uppername=`echo "$name" | sed -e 'y|abcdefghijklmnopqrstuvwxyz./-|ABCDEFGHIJKLMNOPQRSTUVWXYZ___|'`
         eval value=\"\$HAVE_LIB$uppername\"
         if test -n "$value"; then
           if test "$value" = yes; then
@@ -8923,16 +8950,14 @@ else
     am_cv_lib_iconv=no
     cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
-
 #include <stdlib.h>
 #include <iconv.h>
-
 int
 main ()
 {
 iconv_t cd = iconv_open("","");
-           iconv(cd,NULL,NULL,NULL,NULL);
-           iconv_close(cd);
+       iconv(cd,NULL,NULL,NULL,NULL);
+       iconv_close(cd);
   ;
   return 0;
 }
@@ -8947,16 +8972,14 @@ rm -f core conftest.err conftest.$ac_objext \
       LIBS="$LIBS $LIBICONV"
       cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
-
 #include <stdlib.h>
 #include <iconv.h>
-
 int
 main ()
 {
 iconv_t cd = iconv_open("","");
-             iconv(cd,NULL,NULL,NULL,NULL);
-             iconv_close(cd);
+         iconv(cd,NULL,NULL,NULL,NULL);
+         iconv_close(cd);
   ;
   return 0;
 }
@@ -8980,17 +9003,15 @@ if ${am_cv_func_iconv_works+:} false; then :
   $as_echo_n "(cached) " >&6
 else
 
-                  am_save_LIBS="$LIBS"
+            am_save_LIBS="$LIBS"
       if test $am_cv_lib_iconv = yes; then
         LIBS="$LIBS $LIBICONV"
       fi
       if test "$cross_compiling" = yes; then :
-
-         case "$host_os" in
+  case "$host_os" in
            aix* | hpux*) am_cv_func_iconv_works="guessing no" ;;
            *)            am_cv_func_iconv_works="guessing yes" ;;
          esac
-
 else
   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
@@ -8999,7 +9020,6 @@ else
 #include <string.h>
 int main ()
 {
-  int result = 0;
   /* Test against AIX 5.1 bug: Failures are not distinguishable from successful
      returns.  */
   {
@@ -9016,8 +9036,7 @@ int main ()
                             (char **) &inptr, &inbytesleft,
                             &outptr, &outbytesleft);
         if (res == 0)
-          result |= 1;
-        iconv_close (cd_utf8_to_88591);
+          return 1;
       }
   }
   /* Test against Solaris 10 bug: Failures are not distinguishable from
@@ -9036,27 +9055,7 @@ int main ()
                             (char **) &inptr, &inbytesleft,
                             &outptr, &outbytesleft);
         if (res == 0)
-          result |= 2;
-        iconv_close (cd_ascii_to_88591);
-      }
-  }
-  /* Test against AIX 6.1..7.1 bug: Buffer overrun.  */
-  {
-    iconv_t cd_88591_to_utf8 = iconv_open ("UTF-8", "ISO-8859-1");
-    if (cd_88591_to_utf8 != (iconv_t)(-1))
-      {
-        static const char input[] = "\304";
-        static char buf[2] = { (char)0xDE, (char)0xAD };
-        const char *inptr = input;
-        size_t inbytesleft = 1;
-        char *outptr = buf;
-        size_t outbytesleft = 1;
-        size_t res = iconv (cd_88591_to_utf8,
-                            (char **) &inptr, &inbytesleft,
-                            &outptr, &outbytesleft);
-        if (res != (size_t)(-1) || outptr - buf > 1 || buf[1] != (char)0xAD)
-          result |= 4;
-        iconv_close (cd_88591_to_utf8);
+          return 1;
       }
   }
 #if 0 /* This bug could be worked around by the caller.  */
@@ -9075,8 +9074,7 @@ int main ()
                             (char **) &inptr, &inbytesleft,
                             &outptr, &outbytesleft);
         if ((int)res > 0)
-          result |= 8;
-        iconv_close (cd_88591_to_utf8);
+          return 1;
       }
   }
 #endif
@@ -9090,8 +9088,8 @@ int main ()
       && iconv_open ("UTF-8", "IBM-eucJP") == (iconv_t)(-1)
       /* Try HP-UX names.  */
       && iconv_open ("utf8", "eucJP") == (iconv_t)(-1))
-    result |= 16;
-  return result;
+    return 1;
+  return 0;
 }
 _ACEOF
 if ac_fn_c_try_run "$LINENO"; then :
@@ -9149,7 +9147,7 @@ extern
 #ifdef __cplusplus
 "C"
 #endif
-#if defined(__STDC__) || defined(_MSC_VER) || defined(__cplusplus)
+#if defined(__STDC__) || defined(__cplusplus)
 size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);
 #else
 size_t iconv();
@@ -9181,7 +9179,6 @@ $as_echo "
 cat >>confdefs.h <<_ACEOF
 #define ICONV_CONST $am_cv_proto_iconv_arg1
 _ACEOF
-
 
   fi
 
@@ -9258,6 +9255,22 @@ $as_echo "#define PLUGIN_KVV 1" >>confdefs.h
 
 fi
 
+# layout switch
+if test "$PLUGIN_LAYOUT" = "yes"; then
+   PLUGINS="$PLUGINS plugin_layout.o"
+
+$as_echo "#define PLUGIN_LAYOUT 1" >>confdefs.h
+
+fi
+
+# list plugin
+if test "$PLUGIN_LIST" = "yes"; then
+   PLUGINS="$PLUGINS plugin_list.o"
+
+$as_echo "#define PLUGIN_LIST 1" >>confdefs.h
+
+fi
+
 # load average
 if test "$PLUGIN_LOADAVG" = "yes"; then
    PLUGINS="$PLUGINS plugin_loadavg.o"
@@ -9271,6 +9284,14 @@ if test "$PLUGIN_MEMINFO" = "yes"; then
    PLUGINS="$PLUGINS plugin_meminfo.o"
 
 $as_echo "#define PLUGIN_MEMINFO 1" >>confdefs.h
+
+fi
+
+# menu plugin
+if test "$PLUGIN_MENU" = "yes"; then
+   PLUGINS="$PLUGINS plugin_menu.o"
+
+$as_echo "#define PLUGIN_MENU 1" >>confdefs.h
 
 fi
 
@@ -9645,6 +9666,14 @@ if test "$PLUGIN_RASPI" = "yes"; then
    PLUGINS="$PLUGINS plugin_raspi.o"
 
 $as_echo "#define PLUGIN_RASPI 1" >>confdefs.h
+
+fi
+
+# run plugin
+if test "$PLUGIN_RUN" = "yes"; then
+   PLUGINS="$PLUGINS plugin_run.o"
+
+$as_echo "#define PLUGIN_RUN 1" >>confdefs.h
 
 fi
 

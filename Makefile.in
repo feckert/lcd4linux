@@ -114,12 +114,12 @@ am_lcd4linux_OBJECTS = lcd4linux.$(OBJEXT) cfg.$(OBJEXT) \
 	layout.$(OBJEXT) pid.$(OBJEXT) timer.$(OBJEXT) \
 	timer_group.$(OBJEXT) thread.$(OBJEXT) udelay.$(OBJEXT) \
 	qprintf.$(OBJEXT) rgb.$(OBJEXT) event.$(OBJEXT) \
-	widget.$(OBJEXT) widget_text.$(OBJEXT) widget_bar.$(OBJEXT) \
-	widget_icon.$(OBJEXT) widget_keypad.$(OBJEXT) \
-	widget_timer.$(OBJEXT) widget_gpo.$(OBJEXT) plugin.$(OBJEXT) \
-	plugin_cfg.$(OBJEXT) plugin_math.$(OBJEXT) \
-	plugin_string.$(OBJEXT) plugin_test.$(OBJEXT) \
-	plugin_time.$(OBJEXT)
+	action.$(OBJEXT) widget.$(OBJEXT) widget_text.$(OBJEXT) \
+	widget_bar.$(OBJEXT) widget_icon.$(OBJEXT) \
+	widget_keypad.$(OBJEXT) widget_timer.$(OBJEXT) \
+	widget_gpo.$(OBJEXT) plugin.$(OBJEXT) plugin_cfg.$(OBJEXT) \
+	plugin_math.$(OBJEXT) plugin_string.$(OBJEXT) \
+	plugin_test.$(OBJEXT) plugin_time.$(OBJEXT)
 lcd4linux_OBJECTS = $(am_lcd4linux_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -377,6 +377,7 @@ udelay.c      udelay.h        \
 qprintf.c     qprintf.h       \
 rgb.c         rgb.h           \
 event.c       event.h         \
+action.c      action.h        \
                               \
 widget.c      widget.h        \
 widget_text.c widget_text.h   \
@@ -391,7 +392,7 @@ plugin_cfg.c                  \
 plugin_math.c                 \
 plugin_string.c               \
 plugin_test.c                 \
-plugin_time.c
+plugin_time.c                 
 
 EXTRA_lcd4linux_SOURCES = \
 drv_generic_text.c            \
@@ -468,9 +469,12 @@ widget_image.c widget_image.h \
                               \
 lcd4linux_i2c.h               \
                               \
+plugin_layout.h               \
+                              \
 plugin_apm.c                  \
 plugin_asterisk.c             \
 plugin_button_exec.c          \
+plugin_control.c              \
 plugin_cpuinfo.c              \
 plugin_dbus.c                 \
 plugin_diskstats.c            \
@@ -480,15 +484,18 @@ plugin_fifo.c                 \
 plugin_file.c                 \
 plugin_gps.c                  \
 plugin_hddtemp.c              \
-plugin_huawei.c		      \
+plugin_huawei.c		          \
 plugin_i2c_sensors.c          \
 plugin_iconv.c                \
 plugin_imon.c                 \
 plugin_isdn.c                 \
 plugin_kvv.c                  \
+plugin_layout.c               \
+plugin_list.c                 \
 plugin_loadavg.c              \
 plugin_meminfo.c              \
-plugin_mpd.c		      \
+plugin_menu.c                 \
+plugin_mpd.c		          \
 plugin_mpris_dbus.c           \
 plugin_mysql.c                \
 plugin_netdev.c               \
@@ -499,12 +506,13 @@ plugin_proc_stat.c            \
 plugin_python.c               \
 plugin_qnaplog.c              \
 plugin_raspi.c                \
+plugin_run.c                  \
 plugin_sample.c               \
 plugin_seti.c                 \
 plugin_statfs.c               \
 plugin_uname.c                \
 plugin_uptime.c               \
-plugin_w1retap.c	      \
+plugin_w1retap.c	          \
 plugin_wireless.c             \
 plugin_xmms.c
 
@@ -640,6 +648,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/action.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cfg.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debug.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/drv.Po@am__quote@
@@ -715,6 +724,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_asterisk.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_button_exec.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_cfg.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_control.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_cpuinfo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_dbus.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_diskstats.Po@am__quote@
@@ -730,9 +740,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_imon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_isdn.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_kvv.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_layout.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_loadavg.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_math.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_meminfo.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_mpd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_mpris_dbus.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_mysql.Po@am__quote@
@@ -744,6 +757,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_python.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_qnaplog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_raspi.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_run.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_sample.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_seti.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin_statfs.Po@am__quote@

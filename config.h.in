@@ -330,6 +330,9 @@
 /* button_exec plugin */
 #undef PLUGIN_BUTTON_EXEC
 
+/* control plugin */
+#undef PLUGIN_CONTROL
+
 /* cpuinfo plugin */
 #undef PLUGIN_CPUINFO
 
@@ -378,11 +381,20 @@
 /* kvv plugin */
 #undef PLUGIN_KVV
 
+/* layout plugin */
+#undef PLUGIN_LAYOUT
+
+/* list plugin */
+#undef PLUGIN_LIST
+
 /* loadavg plugin */
 #undef PLUGIN_LOADAVG
 
 /* meminfo plugin */
 #undef PLUGIN_MEMINFO
+
+/* menu plugin */
+#undef PLUGIN_MENU
 
 /* mpd plugin */
 #undef PLUGIN_MPD
@@ -416,6 +428,9 @@
 
 /* raspi plugin */
 #undef PLUGIN_RASPI
+
+/* run plugin */
+#undef PLUGIN_RUN
 
 /* sample plugin */
 #undef PLUGIN_SAMPLE

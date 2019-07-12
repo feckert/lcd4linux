@@ -60,6 +60,9 @@ char *Plugins[] = {
 #ifdef PLUGIN_BUTTON_EXEC
     "button_exec",
 #endif
+#ifdef PLUGIN_CONTROL
+    "control",
+#endif
 #ifdef PLUGIN_CPUINFO
     "cpuinfo",
 #endif
@@ -108,11 +111,20 @@ char *Plugins[] = {
 #ifdef PLUGIN_KVV
     "kvv",
 #endif
+#ifdef PLUGIN_LAYOUT
+    "layout",
+#endif
+#ifdef PLUGIN_LIST
+    "list",
+#endif
 #ifdef PLUGIN_LOADAVG
     "loadavg",
 #endif
 #ifdef PLUGIN_MEMINFO
     "meminfo",
+#endif
+#ifdef PLUGIN_MENU
+    "menu",
 #endif
 #ifdef PLUGIN_MPD
     "mpd",
@@ -143,6 +155,9 @@ char *Plugins[] = {
 #endif
 #ifdef PLUGIN_RASPI
     "raspi",
+#endif
+#ifdef PLUGIN_RUN
+    "run",
 #endif
 #ifdef PLUGIN_SAMPLE
     "sample",
@@ -190,6 +205,8 @@ int plugin_init_asterisk(void);
 void plugin_exit_asterisk(void);
 int plugin_init_button_exec(void);
 void plugin_exit_button_exec(void);
+int plugin_init_control(void);
+void plugin_exit_control(void);
 int plugin_init_cpuinfo(void);
 void plugin_exit_cpuinfo(void);
 int plugin_init_dbus(void);
@@ -222,10 +239,16 @@ int plugin_init_isdn(void);
 void plugin_exit_isdn(void);
 int plugin_init_kvv(void);
 void plugin_exit_kvv(void);
+int plugin_init_layout(void);
+void plugin_exit_layout(void);
+int plugin_init_list(void);
+void plugin_exit_list(void);
 int plugin_init_loadavg(void);
 void plugin_exit_loadavg(void);
 int plugin_init_meminfo(void);
 void plugin_exit_meminfo(void);
+int plugin_init_menu(void);
+void plugin_exit_menu(void);
 int plugin_init_mpd(void);
 void plugin_exit_mpd(void);
 int plugin_init_mpris_dbus(void);
@@ -246,6 +269,8 @@ int plugin_init_python(void);
 void plugin_exit_python(void);
 int plugin_init_raspi(void);
 void plugin_exit_raspi(void);
+int plugin_init_run(void);
+void plugin_exit_run(void);
 int plugin_init_sample(void);
 void plugin_exit_sample(void);
 int plugin_init_seti(void);
@@ -297,6 +322,9 @@ int plugin_init(void)
 #ifdef PLUGIN_BUTTON_EXEC
     plugin_init_button_exec();
 #endif
+#ifdef PLUGIN_CONTROL
+    plugin_init_control();
+#endif
 #ifdef PLUGIN_CPUINFO
     plugin_init_cpuinfo();
 #endif
@@ -345,11 +373,20 @@ int plugin_init(void)
 #ifdef PLUGIN_KVV
     plugin_init_kvv();
 #endif
+#ifdef PLUGIN_LAYOUT
+    plugin_init_layout();
+#endif
+#ifdef PLUGIN_LIST
+    plugin_init_list();
+#endif
 #ifdef PLUGIN_LOADAVG
     plugin_init_loadavg();
 #endif
 #ifdef PLUGIN_MEMINFO
     plugin_init_meminfo();
+#endif
+#ifdef PLUGIN_MENU
+    plugin_init_menu();
 #endif
 #ifdef PLUGIN_MPD
     plugin_init_mpd();
@@ -380,6 +417,9 @@ int plugin_init(void)
 #endif
 #ifdef PLUGIN_RASPI
     plugin_init_raspi();
+#endif
+#ifdef PLUGIN_RUN
+    plugin_init_run();
 #endif
 #ifdef PLUGIN_SAMPLE
     plugin_init_sample();
@@ -420,6 +460,9 @@ void plugin_exit(void)
 #endif
 #ifdef PLUGIN_BUTTON_EXEC
     plugin_exit_button_exec();
+#endif
+#ifdef PLUGIN_CONTROL
+    plugin_exit_control();
 #endif
 #ifdef PLUGIN_CPUINFO
     plugin_exit_cpuinfo();
@@ -466,11 +509,20 @@ void plugin_exit(void)
 #ifdef PLUGIN_KVV
     plugin_exit_kvv();
 #endif
+#ifdef PLUGIN_LAYOUT
+    plugin_exit_layout();
+#endif
+#ifdef PLUGIN_LIST
+    plugin_exit_list();
+#endif
 #ifdef PLUGIN_LOADAVG
     plugin_exit_loadavg();
 #endif
 #ifdef PLUGIN_MEMINFO
     plugin_exit_meminfo();
+#endif
+#ifdef PLUGIN_MENU
+    plugin_exit_menu();
 #endif
 #ifdef PLUGIN_MPD
     plugin_exit_mpd();
@@ -501,6 +553,9 @@ void plugin_exit(void)
 #endif
 #ifdef PLUGIN_RASPI
     plugin_exit_raspi();
+#endif
+#ifdef PLUGIN_RUN
+    plugin_exit_run();
 #endif
 #ifdef PLUGIN_SAMPLE
     plugin_exit_sample();
