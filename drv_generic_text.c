@@ -999,3 +999,41 @@ int drv_generic_text_bar_draw(WIDGET * W)
     return 0;
 
 }
+
+void drv_generic_text_clear(int mode)
+{
+
+    static char *backupDisplayFB = NULL;
+
+    /* total clear ==> may flicker */
+    if (mode == 0) {
+	drv_generic_text_bar_clear();
+	memset(LayoutFB, ' ', LROWS * LCOLS);
+	memset(DisplayFB, 'X', DROWS * DCOLS);
+	drv_generic_text_blit(0, 0, LROWS, LCOLS);
+	return;
+    }
+
+    /* part 1 of non-flitter-clear
+     * see my_show_layout() in plugin_layout.c */
+    if (mode == 1) {
+	if (backupDisplayFB == NULL) {
+	    backupDisplayFB = malloc(DROWS * DCOLS * sizeof(char));
+	}
+	memset(LayoutFB, ' ', LROWS * LCOLS);
+	backupDisplayFB = malloc(DROWS * DCOLS * sizeof(char));
+	memcpy(backupDisplayFB, DisplayFB, DROWS * DCOLS);
+	return;
+    }
+
+    /* draw all widget between mode=1 and mode=2 */
+
+    /* part 2 of non-flitter-clear */
+    if (mode == 2) {
+	if (backupDisplayFB != NULL) {
+	    memcpy(DisplayFB, backupDisplayFB, DROWS * DCOLS);
+	    drv_generic_text_blit(0, 0, LROWS, LCOLS);
+	    free(backupDisplayFB);
+	}
+    }
+}

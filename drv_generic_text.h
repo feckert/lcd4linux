@@ -52,6 +52,6 @@ int drv_generic_text_bar_init(const int single_segments);
 void drv_generic_text_bar_add_segment(const int val1, const int val2, const DIRECTION dir, const int ascii);
 int drv_generic_text_bar_draw(WIDGET * W);
 int drv_generic_text_quit(void);
-
+void drv_generic_text_clear(int mode);
 
 #endif
