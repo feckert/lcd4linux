@@ -90,7 +90,6 @@ void property_load(const char *section, const char *name, const char *defval, PR
 
     /* pre-compile the expression */
     Compile(prop->expression, &prop->compiled);
-
 }
 
 
@@ -116,10 +115,11 @@ int property_eval(PROPERTY * prop)
 
     /* check if property value has changed */
     update = 1;
-    if (prop->result.type & R_NUMBER && old.type & R_NUMBER && prop->result.number == old.number) {
+
+    if ((prop->result.type & R_NUMBER) && (old.type & R_NUMBER) && prop->result.number == old.number) {
 	update = 0;
     }
-    if (prop->result.type & R_STRING && old.type & R_STRING && prop->result.size == old.size) {
+    if ((prop->result.type & R_STRING) && (old.type & R_STRING) && (prop->result.size == old.size)) {
 	if (prop->result.string == NULL && old.string == NULL) {
 	    update = 0;
 	} else if (prop->result.string != NULL && old.string != NULL && strcmp(prop->result.string, old.string) == 0) {
