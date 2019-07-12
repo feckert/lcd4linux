@@ -31,7 +31,7 @@
 #define TIMER_ACTIVE  1
 #define TIMER_INACTIVE  0
 
-#include <time.h>
+#include <sys/time.h>
 
 /* structure for storing all relevant data of a single timer */
 typedef struct TIMER {
