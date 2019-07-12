@@ -37,4 +37,8 @@ char *cfg_get(const char *section, const char *key, const char *defval);
 int cfg_number(const char *section, const char *key, const int defval, const int min, const int max, int *value);
 int cfg_exit(void);
 
+char *cfg_make_str(const char *format, ...) __attribute__ ((format(__printf__, 1, 2)));
+int cfg_exist(const char *section);
+int cfg_count(const char *sectionPrefix, const int max);
+
 #endif

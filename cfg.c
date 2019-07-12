@@ -76,6 +76,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
+
 #include <string.h>
 #include <ctype.h>
 #include <errno.h>
@@ -270,6 +272,7 @@ char *cfg_list(const char *section)
     /* search matching entries */
     for (i = 0; i < nConfig; i++) {
 	if (strncasecmp(Config[i].key, key, len) == 0) {
+
 	    list = realloc(list, strlen(list) + strlen(Config[i].key) - len + 2);
 	    if (*list != '\0')
 		strcat(list, "|");
@@ -711,4 +714,66 @@ int cfg_exit(void)
     }
 
     return 0;
+}
+
+/* Creates a formated heap string
+ * pro: no buffer overflow
+ * con: slower
+ */
+char *cfg_make_str(const char *format, ...)
+{
+    char *str = NULL;
+
+    va_list args;
+    va_start(args, format);
+    int len = vasprintf(&str, format, args);
+    va_end(args);
+
+    if (len < 0) {
+	error("cfg_make_str() could't create string.");
+	return NULL;
+    }
+    return str;
+}
+
+/* Checks if section exists in config
+ *  
+ * returns 0 if it doesn't or for leafs, else 1
+ */
+int cfg_exist(const char *section)
+{
+
+    char *result = cfg_list(section);
+
+    if (result == NULL || *result == '\0') {
+	free(result);
+	return 0;
+    }
+    free(result);
+    return 1;
+}
+
+/* Counts numbered sections like
+ * 
+ * Key1 {...}
+ * Key2 {...}
+ * ...
+ * 
+ * doesn't count leafs
+ */
+int cfg_count(const char *sectionPrefix, const int max)
+{
+
+    int i;
+    for (i = 0; i < max; i++) {
+	char *section = cfg_make_str("%s%d", sectionPrefix, i + 1);
+	if (section == NULL)
+	    break;
+
+	int r = cfg_exist(section);
+	free(section);
+	if (r == 0)
+	    break;
+    }
+    return i;
 }
