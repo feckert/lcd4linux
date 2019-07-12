@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 #include "debug.h"
 #include "plugin.h"
@@ -134,6 +135,21 @@ static void my_decode(RESULT * result, int argc, RESULT * argv[])
     CopyResult(&result, argv[index + 1]);
 }
 
+/* random double from the half-open interval [0,1) */
+static void my_rand(RESULT * result)
+{
+    static int init = 0;
+
+    if (!init) {
+	srand(time(NULL));
+	init = 1;
+    }
+
+    double value = 1. * rand() / (1. * RAND_MAX + 1);
+    SetResult(&result, R_NUMBER, &value);
+
+}
+
 
 int plugin_init_math(void)
 {
@@ -160,6 +176,10 @@ int plugin_init_math(void)
 
     /* decode */
     AddFunction("decode", -1, my_decode);
+
+    /* random [0,1) */
+    AddFunction("rand", 0, my_rand);
+
 
     return 0;
 }
