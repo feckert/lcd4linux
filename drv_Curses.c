@@ -81,16 +81,20 @@ static void drv_Curs_clear(void)
 static void drv_Curs_write(const int row, const int col, const char *data, const int len)
 {
     int l = len;
-    char *p;
 
-    while ((p = strpbrk(data, "\r\n")) != NULL) {
-	*p = '\0';
-    }
+    int i;
+    for (i = 0; i < len; i++)
+	if (data[i] == '\r' || data[i] == '\n')
+	    break;
+
+    char str[i + 1];
+    memcpy(str, data, i);
+    str[i] = '\0';
 
     if (col < DCOLS) {
 	if (DCOLS - col < l)
 	    l = DCOLS - col;
-	mvwprintw(w, row + 1, col + 1, "%.*s", l, data);
+	mvwprintw(w, row + 1, col + 1, "%.*s", l, str);
 	wmove(w, DROWS + 1, 0);
 	wrefresh(w);
     }
